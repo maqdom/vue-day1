@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>案例</title>
+  <link rel="stylesheet" href="../js/bootstrap.css">
+  <style>
+   body {
+    padding-left: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="card">
+      <div class="card-header">
+        添加品牌
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="add">
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">品牌名称</div>
+                </div>
+                <input type="text" class="form-control" placeholder="请输入品牌名称" v-model.trim="brand">
+              </div>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-2">添加</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- 表格区域 -->
+    
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">品牌名称</th>
+          <th scope="col">状态</th>
+          <th scope="col">创建时间</th>
+          <th scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in chelist" :key="item.id" >
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" :id="'cb' + item.id " v-model="item.stuas">
+              <label class="custom-control-label" :for="'cb' + item.id" v-if="item.stuas">已启用</label>
+              <label class="custom-control-label" :for="'cb' + item.id" v-else>已禁用</label>
+            </div>
+          </td>
+          <td>{{ item.time }}</td>
+          <td>
+            <a href="javascript:;" @click="remove(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        //用户名品牌名称
+        brand: '',
+        nextid:'3',
+        chelist:[
+          { id:1, name: '奥迪', stuas: true, time:new Date()},
+          { id:2, name: '奔驰', stuas: false, time:new Date()},
+        ]
+      },
+      methods:{
+        //删除
+        remove(id) {
+          // console.log('shanchu');
+         this.chelist = this.chelist.filter( item => item.id !== id)
+        },
+        // 添加
+        add() {
+          //如果输入字符串为空则t=retrun
+          if( this.brand === '')
+          return alert('请输入品牌名称')
+        //1.先把要添加的品牌对象，整理出来
+        //2.在this.list 数组中 push得到的对象
+        //3.清空this。brand 让this.nextid自增加1
+        const obj ={
+          id: this.nextid,
+          name: this.brand,
+          status: true,
+          time: new Date()
+         }
+         this.chelist.push(obj),
+         this.brand ='',
+         this.nextid +=1
+
+        }
+      }
+    })
+  </script>
+    
+  
+</body>
+</html>

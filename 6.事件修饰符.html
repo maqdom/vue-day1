@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   <!-- 希望vue控制这个div 帮我们把数据填充到div内部 -->
+  <div id="app">
+    <a href="http://www.baidu.com" @click.prevent="show">百度</a>
+    <!-- 阻止默认行为 -->
+    <hr>
+    <div style="height: 150px; background-color: orange; padding-left: 100px; line-height: 150px;" @click="div">
+      <button @click.stop="btn">首页</button>
+      <!-- 阻止事件冒泡 -->
+    </div>
+  </div>
+<!-- 导入vue的库文件 -->
+<script src="./vue.js"></script>
+<!-- 创建vue实例对象 -->
+<script>
+//创建vue实例对象
+const vm = new Vue({
+  //el属性是固定写法接受值一个选择器:
+  el:'#app',
+  //data对象就是要渲染到页面的数据
+  data:{
+   count: 0,
+  },
+  //定义事件作用 就是定义事件的函数
+  methods: {
+  show() {
+    // e.preventDefault();//阻止默认行为
+    console.log('点击');
+  },
+  btn() {
+    // e.stopPropagation();//阻止事件冒泡
+    
+    console.log('btn');
+  },
+  div() {
+    console.log('div');
+  }
+  
+  },
+
+})
+</script>
+</body>
+</html>

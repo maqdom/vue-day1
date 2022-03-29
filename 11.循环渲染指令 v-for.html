@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for</title>
+  <link rel="stylesheet" href="./js/bootstrap.css">
+</head>
+<body>
+   <!-- 希望vue控制这个div 帮我们把数据填充到div内部 -->
+   <div id="app">
+    <table class="table table-bordered table-hover table-striped"> 
+      <thead>
+        <th>索引</th>
+        <th>ID</th>
+        <th>姓名</th>
+      </thead>
+      <!-- i是素引号 -->
+      <tbody>      
+        <!-- 官方建议 只要用到v-for指令 那末一定要绑定一个key属性 -->
+        <!-- 而且尽量把id 作为key的值 -->
+        <!-- 官方对key的值类型 是有要求 字符串或数字类型 -->
+        <!-- key的值 千万不能重复的 否则终端报错 -->
+        <tr v-for="(item, i) in list":key="item.id" :title="item.name + i ">
+          <td>{{ i }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+   </div>
+   <!-- 导入vue的库文件 -->
+   <script src="./js/vue.js"></script>
+   <!-- 创建vue实例对象 -->
+   <script>
+     //创建vue实例对象
+     const vm = new Vue({
+       //el属性是固定写法接受值一个选择器:
+       el:'#app',
+       //data对象就是要渲染到页面的数据
+       data:{
+         list:[
+          {id:1, name: '指导',},
+          {id:2, name: '开设'},
+          {id:3, name: '下方'},
+          {id:4, name: '先进'},
+         ],
+       },
+   
+   
+     })
+   </script>
+</body>
+</html>
